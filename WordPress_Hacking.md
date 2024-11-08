@@ -1,24 +1,24 @@
-## Hacking WordPress
+Hacking WordPress
+___________________
 
 **Actions**: hooks that WP core launches during execution or when certain events occur
-•	do_action() — set the action & executes all actions hooked to it when called
-•	add_function() — plugins/themes create custom functions to hook using this
+ - do_action() — set the action & executes all actions hooked to it when called
+ - add_function() — plugins/themes create custom functions to hook using this
 
 **Filters**: similar to actions but modifies data before sending to db or browser
-•	apply_filter() — will trigger all functions hooked to the filter
-•	add_filter() — hooks plugins/themes functions with this
+ - apply_filter() — will trigger all functions hooked to the filter
+ - add_filter() — hooks plugins/themes functions with this
 
+## Important routes:
+![alt text](Trigger_Hooks.png)
 
-Important routes:
-![alt text](image.png)
 
 
 ## Important Actions
-
-•	init
-o	Fires after WordPress has finished loading but before any headers are sent. This is an early stage in the WordPress loading process, making it a critical point for initializing plugin or theme functionalities.
-•	admin_init
-o	Triggers before any other hook when a user accesses the admin area (/wp-admin). Despite the name, this action can be triggered by unauthenticated users.
+ - **init**
+    - Fires after WordPress has finished loading but before any headers are sent. This is an early stage in the WordPress loading process, making it a critical point for initializing plugin or theme functionalities.
+ - **admin_init**
+    - Triggers before any other hook when a user accesses the admin area (/wp-admin). Despite the name, this action can be triggered by unauthenticated users.
 •	wp_ajax_{action} 
 o	A core part of the admin-side AJAX functionality. It’s used to handle authenticated AJAX requests.
 •	wp_ajax_nopriv_{action}
