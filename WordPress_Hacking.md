@@ -1,4 +1,4 @@
-Hacking WordPress
+# Hacking WordPress
 ___________________
 
 **Actions**: hooks that WP core launches during execution or when certain events occur
@@ -19,37 +19,38 @@ ___________________
     - Fires after WordPress has finished loading but before any headers are sent. This is an early stage in the WordPress loading process, making it a critical point for initializing plugin or theme functionalities.
  - **admin_init**
     - Triggers before any other hook when a user accesses the admin area (/wp-admin). Despite the name, this action can be triggered by unauthenticated users.
-•	wp_ajax_{action} 
-o	A core part of the admin-side AJAX functionality. It’s used to handle authenticated AJAX requests.
-•	wp_ajax_nopriv_{action}
-o	Similar to wp_ajax_{action}, but specifically for handling unauthenticated AJAX requests. This hook is crucial for AJAX functionality available to public users.
-•	admin_post and admin_post_nopriv 
-o	These hooks are used for handling form submissions in the WordPress admin area for authenticated (admin_post) and unauthenticated (admin_post_nopriv) users.
-•	admin_action_{action} 
-o	Triggered in response to admin actions. It’s a versatile hook for custom admin functionalities and can be accessed via both GET and POST requests.
-•	profile_update
-o	Fires when a user’s profile is updated. It’s an important hook for executing actions post-user update.
-•	wp_update_user
-o	Similar to profile_update, this action occurs when a user’s data is updated. It is crucial for managing user information.
-•	personal_options_update
-o	This hook is triggered when a user updates their own profile in the WordPress admin area. It allows developers to execute custom code when a user updates their personal settings.
-•	edit_user_profile_update
-o	This hook is triggered when an admin or another user with the appropriate permissions updates another user’s profile. It allows developers to execute custom code during the profile update process for other users. It’s almost always used with personal_options_update.
+ - **wp_ajax_{action}**
+    - A core part of the admin-side AJAX functionality. It’s used to handle authenticated AJAX requests.
+ - **wp_ajax_nopriv_{action}**
+    - Similar to wp_ajax_{action}, but specifically for handling unauthenticated AJAX requests. This hook is crucial for AJAX functionality available to public users.
+ - **admin_post and admin_post_nopriv** 
+    - These hooks are used for handling form submissions in the WordPress admin area for authenticated (admin_post) and unauthenticated (admin_post_nopriv) users.
+ - **admin_action_{action}**
+    - Triggered in response to admin actions. It’s a versatile hook for custom admin functionalities and can be accessed via both GET and POST requests.
+ - **profile_update**
+    - Fires when a user’s profile is updated. It’s an important hook for executing actions post-user update.
+ - **wp_update_user**
+    - Similar to profile_update, this action occurs when a user’s data is updated. It is crucial for managing user information.
+ - **personal_options_update**
+    - This hook is triggered when a user updates their own profile in the WordPress admin area. It allows developers to execute custom code when a user updates their personal settings.
+ - **edit_user_profile_update**
+    - This hook is triggered when an admin or another user with the appropriate permissions updates another user’s profile. It allows developers to execute custom code during the profile update process for other users. It’s almost always used with personal_options_update.
 
 
 ## Important Filters
-•	the_content
-o	Filters the post content before it’s sent to the browser. If improperly sanitized, it can lead to XSS attacks.
-•	the_title
-o	Similar to the_content, this filter can be a vector for XSS if the title output is not properly escaped.
-•	user_has_cap
-o	Filters a user’s capabilities and can be used to alter permissions, potentially leading to privilege escalation.
-•	authenticate
-o	Filters the authentication process. If overridden or improperly extended, it can lead to authentication bypass vulnerabilities.
+ - **the_content**
+    - Filters the post content before it’s sent to the browser. If improperly sanitized, it can lead to XSS attacks.
+ - **the_title**
+    - Similar to the_content, this filter can be a vector for XSS if the title output is not properly escaped.
+ - **user_has_cap**
+    - Filters a user’s capabilities and can be used to alter permissions, potentially leading to privilege escalation.
+ - **authenticate**
+    - Filters the authentication process. If overridden or improperly extended, it can lead to authentication bypass vulnerabilities.
 
-### Triggering functions
+## Triggering functions
 
-## Consider the following function:
+### Example 1:
+Consider the following function:
 
 ```
 function handle_file_upload() {
@@ -81,7 +82,7 @@ Content-Type: application/x-php
 ------WebKitFormBoundaryePkpFF7tjBAqx29L--
 ```
 
-## Example #2
+### Example #2
 
 ```
 function plugin_template_includer_init() {
@@ -100,3 +101,8 @@ Triggered by
 ```
 http://example-wordpress-site.com/wp-admin/?page=some_plugin_page&log_file=../../../../malicious
 ```
+
+______
+## Additional Resources
+ - https://projectblack.io/blog/cve-hunting-at-scale/
+ - https://www.wordfence.com/blog/2024/07/wordpress-security-research-series-wordpress-request-architecture-and-hooks/
